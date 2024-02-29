@@ -14,12 +14,27 @@ class MinefieldApp extends StatefulWidget {
 
 class _MinefieldAppState extends State<MinefieldApp> {
   bool? _won;
-  final Board _board = Board(rows: 12, columns: 12, minesQuantity: 3);
+  Board? _board;
+
+  Board _getBoard(double width, double height) {
+    if (_board == null) {
+      int columnsQuantity = 15;
+      double fieldSize = width / columnsQuantity;
+      int rowsQuantity = (height / fieldSize).floor();
+
+      _board = Board(
+        rows: rowsQuantity,
+        columns: columnsQuantity,
+        minesQuantity: 50,
+      );
+    }
+    return _board!;
+  }
 
   void _restart() {
     setState(() {
       _won = null;
-      _board.restart();
+      _board!.restart();
     });
   }
 
@@ -29,20 +44,20 @@ class _MinefieldAppState extends State<MinefieldApp> {
     setState(() {
       try {
         field.open();
-        if (_board.solved) _won = true;
+        if (_board!.solved) _won = true;
       } on ExplosionException {
         _won = false;
-        _board.revealMines();
+        _board!.revealMines();
       }
     });
   }
 
-  void _onToggleMark(Field field) {
+  void _toggleMark(Field field) {
     if (_won != null) return;
-    
+
     setState(() {
       field.toggleMark();
-      if (_board.solved) _won = true;
+      if (_board!.solved) _won = true;
     });
   }
 
@@ -55,10 +70,20 @@ class _MinefieldAppState extends State<MinefieldApp> {
           won: _won,
           onRestart: _restart,
         ),
-        body: BoardWidget(
-          board: _board,
-          onOpen: _open,
-          onToggleMark: _onToggleMark,
+        body: Container(
+          color: Colors.grey,
+          child: LayoutBuilder(
+            builder: (ctx, constraints) {
+              return BoardWidget(
+                board: _getBoard(
+                  constraints.maxWidth,
+                  constraints.maxHeight,
+                ),
+                onOpen: _open,
+                onToggleMark: _toggleMark,
+              );
+            },
+          ),
         ),
       ),
     );
