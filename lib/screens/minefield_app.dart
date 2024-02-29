@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:minefield/components/board_widget.dart';
 import 'package:minefield/components/result_widget.dart';
 import 'package:minefield/models/board.dart';
+import 'package:minefield/models/explosion_exception.dart';
 import 'package:minefield/models/field.dart';
 
 class MinefieldApp extends StatefulWidget {
@@ -16,15 +17,33 @@ class _MinefieldAppState extends State<MinefieldApp> {
   final Board _board = Board(rows: 12, columns: 12, minesQuantity: 3);
 
   void _restart() {
-    print('Reiniciar...');
+    setState(() {
+      _won = null;
+      _board.restart();
+    });
   }
 
   void _open(Field field) {
-    print('Abrir');
+    if (_won != null) return;
+
+    setState(() {
+      try {
+        field.open();
+        if (_board.solved) _won = true;
+      } on ExplosionException {
+        _won = false;
+        _board.revealMines();
+      }
+    });
   }
 
   void _onToggleMark(Field field) {
-    print('Alternar marcação');
+    if (_won != null) return;
+    
+    setState(() {
+      field.toggleMark();
+      if (_board.solved) _won = true;
+    });
   }
 
   @override
