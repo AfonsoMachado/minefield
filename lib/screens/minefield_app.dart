@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minefield/components/field_widget.dart';
+import 'package:minefield/components/board_widget.dart';
 import 'package:minefield/components/result_widget.dart';
-import 'package:minefield/models/explosion_exception.dart';
+import 'package:minefield/models/board.dart';
 import 'package:minefield/models/field.dart';
 
 class MinefieldApp extends StatelessWidget {
@@ -21,12 +21,6 @@ class MinefieldApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Field field = Field(row: 0, column: 0);
-    try {
-      field.putMine();
-      field.open();
-    } on ExplosionException {}
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -34,12 +28,10 @@ class MinefieldApp extends StatelessWidget {
           won: null,
           onRestart: _restart,
         ),
-        body: Container(
-          child: FieldWidget(
-            field: field,
-            onOpen: _open,
-            onToggleMark: _onToggleMark,
-          ),
+        body: BoardWidget(
+          board: Board(rows: 15, columns: 15, minesQuantity: 0),
+          onOpen: _open,
+          onToggleMark: _onToggleMark,
         ),
       ),
     );
