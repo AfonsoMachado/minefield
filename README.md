@@ -1,16 +1,35 @@
-# minefield
+# Campo Minado
 
-A Minefield game
+Um aplicativo do classico jogo Campo Minado, construído usando flutter
 
-## Getting Started
+## :computer: Tecnologias
 
-This project is a starting point for a Flutter application.
+<ul>
+ <li><a href="https://flutter.dev/">Flutter 3.19.2</a></li>
+</ul>
 
-A few resources to get you started if this is your first Flutter project:
+## :fire: Instalando e executando localmente
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+É necessário ter o flutter na versão 3.19.2 e um ambiente de emulação Android ou iOS configurado na sua máquina
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Clonando o repositório:
+
+```
+$ git clone https://github.com/AfonsoMachado/minefield.git
+```
+
+### Instalando dependências e executando
+
+```bash
+# Go to minefield folder
+$ cd minefield
+
+# Install Dependencies
+$ flutter pub get
+
+# Run backend and frontend
+$ flutter run
+```
+
+## :white_check_mark: Resultado
+
