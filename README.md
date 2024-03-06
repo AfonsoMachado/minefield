@@ -33,3 +33,8 @@ $ flutter run
 
 ## :white_check_mark: Resultado
 
+<img src="https://github.com/AfonsoMachado/minefield/assets/11397955/03d0f58f-8188-4af2-9904-94ed972059e6" height="600" />
+
+---
+
+<p align="center">Feito com 💜 por <strong><a href="https://www.linkedin.com/in/AfonsoMachado/">Afonso Machado</a> 🥰 </strong> </p>
